@@ -1,0 +1,66 @@
+<app-loading-overlay [isLoading]="loading" [responseMessage]="message"></app-loading-overlay>
+<app-header></app-header>
+<div class="min-h-screen flex items-center justify-center px-5 xl:px-0">
+    <form (ngSubmit)="submit()" [formGroup]="loginForm" class="p-6 rounded-xl border-2 shadow-md w-full max-w-sm">
+        <div class="w-full flex flex-col justify-center items-center">
+            <h2 class="text-xl font-bold w-full text-center uppercase text-vsg-black">Đăng nhập</h2>
+            <div>
+                <p class="text-vsg-black text-center my-3 text-sm md:text-base">Bạn chưa có tài khoản?
+                    <a class="text-orange-600" routerLink="/dang-ky">
+                        Đăng ký ngay
+                    </a>
+                    hoặc bấm vào
+                    <a class="text-orange-600" routerLink="/reset-password">
+                        Quên mật khẩu
+                    </a>
+                    để lấy lại thông tin đăng nhập.
+                </p>
+            </div>
+        </div>
+        <div class="max-w-sm mt-2">
+            <label for="input-label" class="block text-sm font-medium mb-2">Email</label>
+            <input type="text" formControlName="email"
+                class="py-2.5 sm:py-3 px-4 block w-full border border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                placeholder="Nhập vào email của bạn">
+            <div class="flex flex-col justify-center gap-x-2 my-2">
+                <div class="text-sm text-red-600" *ngIf="getError('email')">
+                    {{ getError('email') }}
+                </div>
+            </div>
+        </div>
+        <div class="max-w-sm mt-2">
+            <label for="input-label" class="block text-sm font-medium mb-2">Mật khẩu</label>
+            <div class="relative">
+                <input [type]="showPass ? 'text' : 'password'" formControlName="password"
+                    class="py-2.5 sm:py-3 px-4 block w-full border border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                    placeholder="Nhập vào mật khẩu">
+                <div class="absolute inset-y-0 end-0 flex items-center ps-2 group">
+                    <span class="p-3 cursor-pointer" (click)="showPassword()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="currentColor"
+                            class="icon icon-tabler icons-tabler-filled icon-tabler-eye size-6 group-hover:text-goldenfund-yellow-500">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path
+                                d="M12 4c4.29 0 7.863 2.429 10.665 7.154l.22 .379l.045 .1l.03 .083l.014 .055l.014 .082l.011 .1v.11l-.014 .111a.992 .992 0 0 1 -.026 .11l-.039 .108l-.036 .075l-.016 .03c-2.764 4.836 -6.3 7.38 -10.555 7.499l-.313 .004c-4.396 0 -8.037 -2.549 -10.868 -7.504a1 1 0 0 1 0 -.992c2.831 -4.955 6.472 -7.504 10.868 -7.504zm0 5a3 3 0 1 0 0 6a3 3 0 0 0 0 -6z" />
+                        </svg>
+                    </span>
+                </div>
+            </div>
+            <div class="flex flex-col justify-center gap-x-2 my-2">
+                <div class="text-sm text-red-600" *ngIf="getError('password')">
+                    {{ getError('password') }}
+                </div>
+            </div>
+        </div>
+
+        <p class="w-full text-center text-sm my-3" *ngIf="message" [ngClass]="messageClass">{{ message }}</p>
+
+        <div class="flex justify-center gap-x-2 my-7">
+            <button type="submit" [disabled]="loginForm.invalid"
+                class="bg-goldenfund-black-300 text-goldenfund-yellow-500 hover:bg-goldenfund-silver-100 hover:text-goldenfund-black-300 px-4 py-2 rounded w-full disabled:opacity-50 disabled:pointer-events-none">
+                Đăng nhập
+            </button>
+        </div>
+    </form>
+</div>
+<app-footer></app-footer>
