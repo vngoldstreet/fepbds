@@ -9,7 +9,9 @@ module.exports = {
         pbds: {
           blue:"#2563EB",
           black:"#1E293B",
-          gray:"#E2E8F0",
+          gray: "#E2E8F0",
+          white: "#FAFBFC",
+          tgray:"#64748B",
         },
       },
       keyframes: {
