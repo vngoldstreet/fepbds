@@ -9,7 +9,6 @@ import { HomeBlogComponent } from '../../components/home-blog/home-blog.componen
 @Component({
   selector: 'app-homepage',
   imports: [
-    HeaderComponent,
     HeroComponent,
     FeaturedListComponent,
     FeaturedAreaComponent,

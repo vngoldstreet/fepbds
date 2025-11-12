@@ -1,0 +1,16 @@
+.search-container {
+    display: flex;
+    height: calc(100vh - 80px);
+}
+
+.map {
+    flex: 3;
+    height: 100%;
+}
+
+.listing {
+    flex: 2;
+    overflow-y: auto;
+    background: #fff;
+    border-left: 1px solid #eee;
+}

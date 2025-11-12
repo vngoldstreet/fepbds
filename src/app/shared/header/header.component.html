@@ -20,9 +20,9 @@
             <ul class="flex gap-2">
                 <li *ngFor="let item of navItemsForBrowser; index as i" (click)="setActive(i)"
                     class="hidden lg:block p-0">
-                    <a *ngIf="item.show" [routerLink]="item.link"
+                    <a [routerLink]="item.link"
                         class="hover:text-pbds-blue text-center px-2 py-1 flex items-center gap-1 cursor-pointer text-base rounded-3xl transition duration-100 ease-in-out"
-                        [ngClass]="{'text-pbds-blue font-semibold': selectedIndex === i}">
+                        [ngClass]="{'text-pbds-blue': selectedIndex === i}">
                         <!-- Hiển thị icon SVG -->
                         <span [innerHTML]="item.icon"></span>
                         <span>{{ item.label }}</span>
@@ -94,7 +94,7 @@
                             Đăng ký
                         </a>
                         <a routerLink="/dang-nhap"
-                            class="flex justify-center gap-1 items-center px-3 py-1 bg-pbds-blue rounded-full text-base text-pbds-white hover:bg-blue-800">
+                            class="flex justify-center gap-1 items-center px-3 py-1 bg-pbds-blue rounded-full text-base text-pbds-white hover:bg-blue-800/90">
                             <svg class="flex-shrink-0 size-4 font-bold" xmlns="http://www.w3.org/2000/svg" width="24"
                                 height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round">

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Location } from '@angular/common';
@@ -18,7 +18,8 @@ export class HeaderComponent {
   constructor(
     private router: Router,
     private location: Location,
-    private auth: AuthService
+    private auth: AuthService,
+    private cdr: ChangeDetectorRef
   ) {}
   userSignal = userSignal;
   isLoggedIn = isLoggedInState;
@@ -26,19 +27,13 @@ export class HeaderComponent {
   navItemsForBrowser: {
     label: string;
     link: string;
-    show: boolean;
     icon?: SafeHtml;
   }[] = [];
   ngOnInit(): void {
-    const currentUrl = this.location.path();
-    if (currentUrl !== '') {
-      this.selectedIndex = this.getNavIndex(this.location.path());
-    }
     this.navItemsForBrowser = [
       {
         label: 'Trang chủ',
         link: '/',
-        show: true,
         icon: this
           .sanitizeIcon(`<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
           viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -56,7 +51,6 @@ export class HeaderComponent {
         icon: this.sanitizeIcon(
           `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>`
         ),
-        show: true,
       },
       {
         label: 'Khu vực',
@@ -64,14 +58,23 @@ export class HeaderComponent {
         icon: this.sanitizeIcon(
           `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-map-pin size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" /></svg>`
         ),
-        show: true,
       },
       {
         label: 'Blog',
         link: '/blog',
-        show: true,
       },
     ];
+    this.cdr.detectChanges();
+  }
+
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+    const currentUrl = this.location.path();
+    if (currentUrl !== '') {
+      this.selectedIndex = this.getNavIndex(this.location.path());
+    }
+    this.cdr.detectChanges();
   }
 
   sanitizeIcon(svg: string): SafeHtml {
@@ -92,10 +95,14 @@ export class HeaderComponent {
   }
 
   selectedIndex: number = 0;
+
   setActive(index: number): void {
-    this.selectedIndex = index;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => {
+      this.selectedIndex = index;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   }
+
   isDropdown = false;
   toggleDropdown() {
     this.isDropdown = !this.isDropdown;
