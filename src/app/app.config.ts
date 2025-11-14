@@ -10,6 +10,7 @@ import {
   provideHttpClient,
   withFetch,
   withInterceptors,
+  withXsrfConfiguration,
 } from '@angular/common/http';
 import { authInterceptorFn } from './core/interceptors/auth.interceptors';
 

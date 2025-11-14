@@ -132,58 +132,13 @@ export class LoginComponent {
           }, 2000);
         },
         error: (err: any) => {
-          this.auth.loginToGF$(email, password).subscribe({
-            next: (data) => {
-              // this.success = true;
-              this.messageClass = 'text-green-600';
-              this.message = 'Đăng nhập thành công!';
-              const registerForm = {
-                name: data.data.customer.name,
-                email: data.data.customer.email,
-                phone: data.data.customer.phone,
-                password: password,
-              };
-              this.auth.register$(JSON.stringify(registerForm)).subscribe({
-                next: (data) => {
-                  this.auth
-                    .login$(registerForm.email, registerForm.password)
-                    .subscribe({
-                      next: () => {
-                        this.success = true;
-                        this.message = 'Đăng nhập thành công!';
-                        setTimeout(() => {
-                          this.router.navigate(['']);
-                        }, 1000);
-                      },
-                      error: (err: any) => {
-                        this.success = false;
-                        this.message =
-                          err?.error?.error ||
-                          'Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin đăng nhập!';
-                        this.loading = false;
-                      },
-                    });
-                },
-                error: (err: any) => {
-                  console.log(err);
-                  this.success = false;
-                  this.messageClass = 'text-red-600';
-                  this.message =
-                    err?.error?.error?.message ||
-                    'Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin đăng nhập!';
-                  this.loading = false;
-                },
-              });
-            },
-            error: (err: any) => {
-              this.success = false;
-              this.messageClass = 'text-red-600';
-              this.message =
-                err?.error?.error ||
-                'Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin đăng nhập!';
-              this.loading = false;
-            },
-          });
+          console.log(err);
+          this.success = false;
+          this.messageClass = 'text-red-600';
+          this.message =
+            err?.error?.error?.message ||
+            'Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin đăng nhập!';
+          this.loading = false;
         },
       });
     }

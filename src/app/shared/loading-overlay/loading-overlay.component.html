@@ -1,0 +1,7 @@
+<div *ngIf="isLoading"
+    class="fixed inset-0 z-50 bg-white/70 backdrop-blur-sm flex items-center justify-center flex-col">
+    <div class="size-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+    <p class="my-3 text-base w-full xl:w-1/3 text-center">
+        {{responseMessage}}
+    </p>
+</div>

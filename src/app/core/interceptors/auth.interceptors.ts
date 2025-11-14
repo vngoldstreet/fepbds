@@ -33,6 +33,13 @@ export const authInterceptorFn: HttpInterceptorFn = (
       },
     });
   }
+
+  // Bypass MinIO uploads: do not set Authorization header
+  if (req.url.includes('minio.phobatdongsan.com.vn')) {
+    return next(req);
+  }
+
+  // Add Authorization for normal API requests
   return next(req).pipe(
     catchError((err: HttpErrorResponse): Observable<HttpEvent<any>> => {
       if (err.status === 401) {
